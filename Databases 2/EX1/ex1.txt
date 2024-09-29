@@ -1,0 +1,120 @@
+EX1
+
+
+
+/*####### ΕΡΩΤΗΣΗ 1 ############*/
+
+drop database if exists chartered_airlines_bd;
+create database chartered_airlines_bd;
+use chartered_airlines_bd;
+
+
+drop table if exists FLIGHTS;
+create table FLIGHTS(
+	flight_no numeric(3),
+    departure VARCHAR(255),
+    arrival VARCHAR(255),
+    seats INT(3),
+    free_seats INT(3),
+
+    CONSTRAINT PK_flight_no primary key(flight_no)
+);
+
+
+describe FLIGHTS;
+
+insert into FLIGHTS(flight_no, departure, arrival, seats, free_seats)
+values
+(1,'Eleftherios Venizelos','London Southend Airport', 50, 15),
+(2,'Venice Marco Polo Airport', 'Macedonia',60,30),
+(3,'London Heathrow', 'Chania International Airport', 80, 40);
+
+drop table if exists customers;
+create table customers(
+	customer_no numeric(3),
+	customer_lastname varchar(25),
+	customer_firstname varchar(25),
+	citizenship varchar(10),
+	birth_date varchar(20),
+
+    constraint PK_customer_no primary key(customer_no)
+);
+describe customers;
+
+
+insert into customers(customer_no,customer_lastname,customer_firstname,citizenship,birth_date)
+values
+(1, 'Doe' ,'John', 'CY', date ('2000-3-17') ),
+(2, 'Kokkalis', 'Xristos', 'GR', date ('2001-11-12')),
+(3, 'Black', 'Donald', 'US', date ('2001-1-6'));
+
+
+
+drop table if exists reservations;
+create table reservations (
+	res_no numeric(3),
+	customer_no numeric(3),
+	flight_no numeric(3),
+	price double(10,2),
+
+    constraint PK_res_no primary key(res_no),
+    constraint FK_customer_no foreign key(customer_no) references customers(customer_no),
+    constraint FK_flight_no foreign key(flight_no) references flights(flight_no)
+);
+
+describe reservations;
+
+insert into reservations(res_no,customer_no,flight_no,price)
+value
+(1,1,1,600),
+(2,2,2,300),
+(3,3,2,400),
+(4,1,3,550),
+(5,2,3,700);
+
+
+
+select * from FLIGHTS;
+select * from customers;
+select * from reservations;
+
+
+/*####### ΕΡΩΤΗΣΗ 2 ############*/
+
+
+select COUNT(res_no) as Total, flight_no
+from reservations
+group by flight_no;
+
+
+select customers.customer_no as c_no, customers.customer_firstname as name, sum(reservations.price) as sum
+from  reservations
+inner join customers
+on customers.customer_no = reservations.customer_no
+group by customers.customer_no, reservations.customer_no
+order by sum(reservations.price)desc;
+
+/*####### ΕΡΩΤΗΣΗ 4 ############*/
+
+drop view if exists reservations_view;
+create view reservations_view(Res_ID, C_ID, Flight_ID, COST)
+as select res_no, customer_no, flight_no, price from reservations
+with check option;
+
+select * from reservations_view;
+
+insert into reservations_view(Res_ID, C_ID, Flight_ID, COST)
+value (7,3,3,1000);
+
+
+
+drop view if exists res_customer_view;
+create view res_customer_view(Res_ID,C_ID,C_NAME, Flight_ID, COST)
+as select distinct res_no, reservations.customer_no, customers.customer_firstname, flight_no, price
+from reservations inner join customers on customers.customer_no = reservations.customer_no
+order by customers.customer_firstname;
+
+select * from res_customer_view;
+
+insert into res_customer_view(Res_ID,C_ID,C_NAME, Flight_ID, COST)
+value(7,3,'Dan',2,500);

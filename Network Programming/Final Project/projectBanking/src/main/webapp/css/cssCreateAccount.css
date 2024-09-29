@@ -1,0 +1,216 @@
+/*
+   
+    Τμήμα: ΔΠΖ03
+
+*/
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
+/*General Styles*/
+
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+
+.div-middle{
+
+    text-align: center;
+    color: #222;
+    font-weight: bold;
+
+}
+
+
+
+/*Styles for navigation bar*/
+.wrapper {
+    max-width: 1800px;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+a {
+    text-decoration: none;
+    color: #222;
+}
+
+
+.header {
+    position: relative;
+    top: 0;
+    background-color: #fafafa; }
+
+.header-wrapper {
+    padding-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+}
+
+@media (min-width: 600px) {
+    .nav-wrapper {
+        display: flex;
+        list-style-type: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .nav-wrapper {
+
+        list-style-type: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: -1;
+        background-color: #fafafa;
+        visibility: hidden;
+        opacity: 0;
+    }
+    .nav-wrapper.active {
+        visibility: visible;
+        opacity: 1;
+    }
+}
+
+.nav-item a {
+    padding: 1rem 1rem;
+}
+
+
+
+.nav__toggle {
+    display: none;
+}
+
+@media (max-width: 599px) {
+.nav__toggle {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+}
+
+
+/*buttons style*/
+.button-nav {
+    text-decoration: none;
+    background-color: #4179da;
+    border-radius: 15px;
+    border-style: none;
+    box-sizing: border-box;
+    color: #fbfdff;
+    height:10px ;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: none;
+    width: 100px;
+}
+
+    .button-nav:hover {
+    background: #3361af;
+    color: #ffffff;
+    }
+
+    .button-nav:active {
+    outline: none;
+    }
+
+    .button-nav:focus {
+    outline: none;
+    }
+
+
+
+.button {
+
+    align-items: center;
+    appearance: none;
+    background-color: #4179da;
+    border-radius: 24px;
+    border-style: none;
+    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
+    box-sizing: border-box;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-flex;
+    fill: currentcolor;
+    font-family: "Google Sans",Roboto,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    height: 48px;
+    justify-content: center;
+    letter-spacing: .25px;
+    line-height: normal;
+    max-width: 100%;
+    overflow: visible;
+    padding: 2px 24px;
+    position: relative;
+    text-align: center;
+    text-transform: none;
+    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    width: auto;
+    will-change: transform,opacity;
+    z-index: 0;
+}
+
+.button:hover {
+    background: #3361af;
+    color: #ffffff;
+    }
+
+    .button:active {
+    box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+    outline: none;
+    }
+
+    .button:focus {
+    outline: none;
+    /*border: 2px solid #322e3f;*/
+    }
+
+/*inputs*/
+.inputs[type=text] {
+    background: hsl(0deg 0% 100%);
+    box-shadow: 0 0 1em hsl(231deg 62% 94%);
+    padding: 1em;
+    flex-direction: column;
+    border-radius: 20px;
+    color: #222;
+    margin-top: 20px;
+    border: #fff;
+    outline: none;
+    width: 300px;
+    border-color: #222;
+    border-style: solid;
+    border-width: thin;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.inputs:hover {
+    background: #F6F9FE;
+    color: #222;
+    outline: none;
+}
+
+.inputs:active {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    color: #222;
+    outline: none;
+}
+
+.inputs:focus {
+    color: #222;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    outline: none;
+}

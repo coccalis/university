@@ -1,0 +1,39 @@
+<!--
+// ΧΡΗΣΤΟΣ ΚΟΚΚΑΛΗΣ ΑΜ:19390090
+//IDE USED: IntelliJ IDEA Ultimate 2021.2.3
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+
+
+    <link rel="stylesheet" href="css/cssAddStudent.css">
+
+</head>
+<body>
+    <div class="center">
+        <h1 >Add New Student</h1>
+        <!-- connect with servlet to extract the data and save it to sql database -->
+        <form action="addStudent-servlet" method="post" style='position: relative; top: -100px; '>
+            <input class="inputs" type="text"  name="ID" id="id" placeholder="AM" />
+            <br>
+            <input class="inputs" type="text"  name="Firstname" id="firstName" placeholder="FirstName" />
+            <br>
+            <input class="inputs" type="text"  name="Lastname" id="lastName" placeholder="LastName" />
+            <br>
+            <input class="inputs" type="text"  name="University" id="university" placeholder="University" />
+            <br>
+            <input class="inputs" type="text"  name="Semester" id="semester" placeholder="Semester" />
+            <br>
+            <input class="inputs" type="text"  name="Modules" id="modules" placeholder="Modules" />
+            <br>
+            <input class="button" type="submit" value="Add" style= "margin-top: 30px;" >
+        </form>
+    </div>
+
+</body>
+</html>

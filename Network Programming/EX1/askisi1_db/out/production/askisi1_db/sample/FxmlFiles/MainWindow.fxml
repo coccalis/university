@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<?import java.lang.Integer?>
+<?import javafx.scene.control.Spinner?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="804.0" style="-fx-background-color:  linear-gradient(to bottom, #2d0ac7, #6a5acd);" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.Controller">
+   <center>
+      <AnchorPane prefHeight="400.0" prefWidth="655.0" BorderPane.alignment="CENTER">
+         <children>
+            <!-- ###start of main buttons###
+            //Τα κύρια buttons του μενού -->
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="25.0" prefHeight="26.0" prefWidth="290.0" text="Welcome to the Student Database!" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Ebrima Bold" size="17.0" />
+               </font></Label>
+            <Button fx:id="connectBtn" layoutX="25.0" layoutY="79.0" mnemonicParsing="false" onAction="#connectDb" prefHeight="36.0" prefWidth="121.0" style="-fx-background-color: white;" text="Connect" />
+            <Button fx:id="showStListBtn" disable="true" layoutX="25.0" layoutY="369.0" mnemonicParsing="false" onAction="#showDb" prefHeight="36.0" prefWidth="121.0" style="-fx-background-color: white;" text="Show Student List" />
+            <Button fx:id="searchBtn" disable="true" layoutX="25.0" layoutY="418.0" mnemonicParsing="false" onAction="#searchDb" prefHeight="36.0" prefWidth="121.0" style="-fx-background-color: white;" text="Search" />
+            <Button fx:id="addBtn" disable="true" layoutX="25.0" layoutY="464.0" mnemonicParsing="false" onAction="#updateDb" prefHeight="36.0" prefWidth="121.0" style="-fx-background-color: white;" text="Insert" />
+            <Button fx:id="deleteBtn" disable="true" layoutX="25.0" layoutY="510.0" mnemonicParsing="false" onAction="#deleteData" prefHeight="36.0" prefWidth="121.0" style="-fx-background-color: white;" text="Delete" />
+            <Button fx:id="disconnectBtn" disable="true" layoutX="25.0" layoutY="129.0" mnemonicParsing="false" onAction="#disconnectDb" prefHeight="36.0" prefWidth="121.0" style="-fx-background-color: white;" text="Disconnect" />
+            <TextArea fx:id="showListTextArea" editable="false" layoutX="180.0" layoutY="209.0" prefHeight="356.0" prefWidth="616.0" />
+            <!-- ###end of main buttons### -->
+
+
+            <!-- ###start of search menu### -->
+            <TextField fx:id="searchTf" layoutX="180.0" layoutY="117.0" prefHeight="25.0" prefWidth="447.0" promptText="Lastname or the ID of student" visible="false"/>
+            <ChoiceBox fx:id="searchOptionBox" layoutX="640.0" layoutY="115.0" prefWidth="150.0" visible="false">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Search by Lastname" />
+                     <String fx:value="Search by Semester" />
+                  </FXCollections>
+               </items>
+            </ChoiceBox>
+            <Button fx:id="submitBtn" layoutX="180.0" layoutY="165.0" mnemonicParsing="false" style="-fx-background-color: white;" text="OK" visible="false" />
+            <Label fx:id="searchTitleLabel" contentDisplay="CENTER" layoutX="180.0" layoutY="79.0" prefHeight="26.0" prefWidth="260.0" text="Search Student." textAlignment="CENTER" textFill="WHITE" wrapText="true" visible="false">
+               <font>
+                  <Font name="Ebrima Bold" size="17.0" />
+               </font>
+            </Label>
+            <!-- end of search menu -->
+
+
+            <!-- start of add menu -->
+            <TextField fx:id="addModuleTf" layoutX="180.0" layoutY="153.0" visible="false" promptText="LastName"/>
+            <fx:define>
+               <Integer fx:id="min" fx:value="0"/>
+               <Integer fx:id="max" fx:value="56"/>
+            </fx:define>
+            <Spinner fx:id="moduleSp" layoutX="365.0" layoutY="153.0" prefHeight="25.0" prefWidth="75.0" visible="false" editable="true" min="$min" max="$max"/>
+            <Button fx:id="insertBtn" layoutX="474.0" layoutY="153.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Add" visible="false"/>
+            <Label fx:id="addTitleLabel" contentDisplay="RIGHT" layoutX="181.0" layoutY="116.0" prefHeight="26.0" prefWidth="147.0" text="Update Modules." textFill="WHITE" wrapText="true" visible="false">
+               <font>
+                  <Font name="Ebrima Bold" size="15.0" />
+               </font>
+            </Label>
+            <!-- end of add menu- -->
+
+            <!--start of delete menu -->
+            <TextField fx:id="deleteTf" layoutX="180.0" layoutY="135.0" prefHeight="25.0" prefWidth="268.0" visible="false" promptText="LastName" />
+            <Button fx:id="deleteStBtn" layoutX="180.0" layoutY="173.0" mnemonicParsing="false" style="-fx-background-color: white;" text="Delete" visible="false"/>
+            <Button fx:id="deleteAllBtn" onAction="#deleteAllStudents" layoutX="717.0" layoutY="173.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="80.0" style="-fx-background-color: white;" text="Delete All" visible="false" />
+            <Label fx:id="deleteTitleLabel" contentDisplay="CENTER" layoutX="180.0" layoutY="102.0" prefHeight="26.0" prefWidth="260.0" text="Delete Student." textAlignment="CENTER" textFill="WHITE" wrapText="true" visible="false">
+               <font>
+                  <Font name="Ebrima Bold" size="15.0" />
+               </font>
+            </Label>
+            <!-- end of delete menu -->
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

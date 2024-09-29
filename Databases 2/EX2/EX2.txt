@@ -1,0 +1,71 @@
+EX2
+
+
+/*####### ΕΡΩΤΗΣΗ 1 ############*/
+
+delimiter //
+create trigger FLIGHTS_FREE_SEATS
+after insert on reservations
+for each row
+begin
+update flights
+set free_seats = ifnull(free_seats,0) - 1
+where flight_no = new.flight_no;
+end;
+// 
+delimiter ;
+
+
+insert into reservations(res_no,customer_no,flight_no,price, res_date)
+value
+(9,3,4,300, current_date() );
+
+select * from FLIGHTS;
+
+
+/*####### ΕΡΩΤΗΣΗ 2 ############*/
+
+drop function if exists res_duration
+
+delimiter //
+
+create function res_duration (res_no int) 
+returns int
+begin
+	declare duration int default 0;
+    select TIMESTAMPDIFF(MONTH, reservations.res_date, flights.depart_date) into duration
+	  from reservations, flights
+      where reservations.flight_no = flights.flight_no and res_no = reservations.res_no;
+      return duration;
+	 
+end;
+
+// 
+delimiter ;
+
+select res_duration(1) as duration;
+
+
+/*####### ΕΡΩΤΗΣΗ 3 ############*/
+
+
+
+drop procedure if exists GetSumOfFlight;
+
+delimiter //
+
+create procedure GetSumOfFlight(in flightNo int, out sum double)
+begin
+	select sum(price) into sum
+    from reservations
+    where flight_no = flightNo;
+
+end
+
+//
+delimiter ;
+
+
+call GetSumOfFlight(3, @sum);
+
+select @sum as sum;

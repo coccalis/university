@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <!-- link css file -->
+    <link href="cssHome.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <div class="center">
+        <h1 style="font-size: 40px;" >Welcome to Chartered Airlines</h1>
+        <p style="font-size: 20px;">Choose one of the following options.</p>
+        <br>
+
+        <!-- Go to Flights Table php when button is pressed-->
+        <form action="FlightsTable.php" method="get">
+            <input class="button" type="submit" name="button" value="View Flights List">
+            <br>
+        </form>
+
+        <!-- Go to View Reserved Seats php when button is pressed-->
+        <form action="ViewReservedSeats.php" method="get">
+            <br>
+            <input class="button" type="submit" name="button" value="View Reserved Seats">
+        </form>
+
+        <!-- Go to View Reservations php when button is pressed-->
+        <form action="ViewReservations.php" method="get">
+            <br>
+            <br>
+            <input class="button" type="submit" name="button" value="View Reservations">
+        </form>
+
+    </div>
+
+
+</body>
+</html>

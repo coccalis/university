@@ -1,0 +1,159 @@
+
+
+DROP	DATABASE IF EXISTS	NEW_PERSONNEL;
+CREATE	DATABASE	new_personnel;
+USE	new_personnel;
+/*Ερώτηση 1*/
+
+/*Dept*/
+create table DEPT(
+    DEPTNO INT(2) NOT NULL,
+    DNAME VARCHAR(14),
+    LOC VARCHAR(14)
+);
+
+
+INSERT INTO DEPT(DEPTNO, DNAME, LOC)
+VALUES (10, 'ACCOUNTING', 'ATHENS' );
+
+INSERT INTO DEPT(DEPTNO, DNAME, LOC)
+VALUES (20, 'SALES', 'LONDON' );
+
+INSERT INTO DEPT(DEPTNO, DNAME, LOC)
+VALUES (30, 'RESEARCH', 'ATHENS' );
+
+INSERT INTO DEPT(DEPTNO, DNAME, LOC)
+VALUES (40, 'PAYROLL', 'LONDON' );
+
+SELECT * FROM DEPT;
+
+
+
+/*Emp*/
+CREATE TABLE EMP(
+    EMPNO INT(4) NOT NULL, ENAME VARCHAR(10), JOB VARCHAR(25),
+    HIREDATE DATE, MGR INT(4), SAL FLOAT(7,2), COMM FLOAT(7,2),
+    DEPTNO INT(2)
+);
+
+INSERT INTO EMP(EMPNO, ENAME, JOB, HIREDATE, MGR, SAL, DEPTNO)
+VALUES (10, 'CODD', 'ANALYST', '89/1/1', 15, 3000, 10 );
+
+
+INSERT INTO EMP VALUES 
+(15, 'ELMASRI', 'ANALYST', '95/05/02', 15, 1200, 150, 10);
+
+INSERT INTO EMP VALUES 
+(20, 'NAVATHE', 'SALESMAN', '77/07/07', 20, 2000, NULL, 20);
+
+INSERT INTO EMP VALUES
+(30, 'DATE', 'PROGRAMMER', '04/05/04', 15, 1800, 200, 10);
+
+SELECT * FROM EMP;
+
+/*Proj*/
+create table PROJ(
+    PROJ_CODE int(4) NOT NULL, PAYROLL varchar(25)
+);
+
+INSERT INTO PROJ VALUES
+(100, 'PAYROLL');
+
+INSERT INTO PROJ VALUES
+(200, 'PERSONNEL');
+
+INSERT INTO PROJ VALUES
+(300, 'SALES');
+
+SELECT * FROM PROJ;
+
+/*ASSIGN*/
+
+create table ASSIGN(
+    EMPNO int(4), PROJ_CODE int(4) NOT NULL, A_TIME int(4)
+);
+
+
+INSERT INTO ASSIGN VALUES
+(10, 100, 40);
+
+insert into ASSIGN values
+(10, 200, 60);
+
+insert into ASSIGN values
+(15, 100, 100);
+
+insert into ASSIGN values
+(20, 200, 100);
+
+insert into ASSIGN values
+(30,100,100);
+
+SELECT * FROM ASSIGN;
+
+
+/*Ερώτηση 2*/
+
+    SHOW TABLE;
+
+    describe DEPT;
+    describe  EMP;
+    describe  PROJ;
+    describe  ASSIGN;
+
+
+/*Ερώτηση 3*/
+/*Θα χρησιμοποιήσουμε την εντολή alter table για να προσθέσουμε τα keys στα tables. */
+
+/*dept*/
+
+alter table DEPT
+add primary key (DEPTNO);
+
+
+
+/*emp*/
+
+alter table EMP
+add primary key(EMPNO);
+
+alter table EMP
+add foreign key(DEPTNO) references DEPT(DEPTNO);
+
+
+
+/*proj*/
+alter table PROJ
+add primary key(PROJ_CODE);
+
+
+/*assign*/
+alter table ASSIGN
+add primary key(EMPNO, PROJ_CODE);
+
+alter table ASSIGN
+add foreign key(EMPNO) references EMP(EMPNO),
+add foreign key(PROJ_CODE) references PROJ(PROJ_CODE);
+
+/*Ερώτηση 4*/
+
+/*i*/
+
+alter table EMP 
+add column ADDRESS varchar(50) after DEPTNO;
+
+/*ii*/
+
+alter table DEPT
+modify column LOC varchar(30);
+
+/*iii*/
+
+create table TASK(
+	TASK_CODE int(4), DESCRIPTION varchar(20),
+    
+);
+
+/*iv*/
+
+/*Έγινε σχεδιαστηκά η ένωση 1:n των tables TASK και PROJ*/

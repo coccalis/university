@@ -1,0 +1,124 @@
+#Script 2
+# Για το 2ο script θα χρησιμοποιήσουμε την case...esac καθώς είναι η πιο ιδανική γι'αυτή την άσκηση. Ουσιαστικά η μεταβλητή $1 έχει την παράμετρο που θα βάλει ο χρήστης δηλαδή το -a ή το -l κλπ. Με βάση
+# το περιεχόμενο της μεταβλητής $1, θα ελέγξει με ποια συνθήκη είναι αληθής. Έπειτα αν με μια συνθήκη είναι αληθής τότε θα εκτέλεσει τις εντολές που έχουμε γράψει. Αν όμως δεν είναι αληθής με κάποια συνθήκη
+# τότε θα πάει στην επιλογή "*)" όπου θα εκτέλεσει οτι εντολές έχουμε γράψει εκεί και θα τερματιστεί.     
+case $1 in
+
+#-------[-a]---------
+  -a)
+        # Εδώ ζητάμε απο τον χρήστη να πληκτρολογήσει τα στοιχεία που θέλουμε, έπειτα αποθηκεύονται στην μεταβλήτη "n" και χρησιμοποιούμε την εντολή echo για να τα εκτυπώσουμε στο αρχείο catalog. 
+        echo "Enter the Name, Lastname, City and Phone number you want to save in the file catalog."
+        read n
+        echo $n >> catalog
+  ;;
+
+
+#-------[-l]---------
+  -l) 
+        # Θα γίνει χρήση της εντολής grep με παραμέτρους το -v και το -e. Το -v το χρησιμοποιούμε για να μας εμφανίσει τις non-matching γραμμες του αρχείου.
+        # Το -e το χρησιμοποιούμε για να βρει το matching pattern.
+        grep -v -e '^$' catalog
+  ;;
+
+
+#-------[-s]---------
+  -s)
+        # Στην μεταβλητή $2 απθηκεύεται η παράμετρος. Χρησιμοποιούμε την if για να ελέγξουμε αν ο χρήστης έχει εισάγει την παράμετρο που πρέπει ή είναι κένη ώστε να αποφευχθεί κάποιο λάθος στην εκτέλεση του script.  
+        if [ -z "$2" ]
+        then
+                echo " There is no argument. Please try again."
+        else
+                # Για την ταξινόμση του αρχείου catalog χρησιμοποιούμε την εντολή sort με παράμετρο -k για να ταξινομήσει τις γραμμές με βάση ποία στήλη θέλει ο χρήστης.
+                sort -k $2 catalog
+  
+        fi
+  ;;
+
+
+#-------[-c]---------
+  -c)
+        #Εδώ χρησιμοποίουμε την ίδια συνθήκη όπως στην παράμετρο -s
+        if [ -z "$2" ]
+        then
+                echo " There is no argument. Please try again."                                                                                                                                                                           
+        else                                                                                                                                                                                                                              
+                # Έδω θα γίνει χρήση της εντολής grep για να βρεί το keyword που θέλουμε. Χρησιμοποιώ την παράμετρο --color=always μόνο και μόνο για να κάνει highlight το keyword του χρήστη.
+                grep --color=always $2 catalog                                                                                                                                                                                            
+        fi                                                                                                                                                                                                                                
+  ;;                                                                                                                                                                                                                                      
+                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                          
+#-------[-d]---------                                                                                                                                                                                                                     
+  -d)            
+        #Εδώ χρησιμοποίουμε την ίδια συνθήκη όπως στην παράμετρο -s με την μόνη διαφορά οτι κάνουμε έλεγχο και για το keyword και για την τριτη παραμετρο.                                                                                                                                                                                                                          
+        if [ -z "$2" ] && [ -z "$3" ]
+        then
+
+                echo " There seems to be a problem. Arguments missing. Please try again. If you don't know, try $0 -d [keyword] -b/-r "
+
+        else
+                #Χρησιμοποίουμε την case για να έλεγξουμε ποια είναι η τριτη παράμετρος. 
+                case $3 in
+                #-------[-b]---------
+
+                -b)
+                        #Θα γίνει χρήση της εντολής sed η οποία μας επιτρέπει εύκολα να τροποποιήσουμε το περιεχόμενο ενός αρχείου. Χρησιμοποιούμε την παράμετρο -i για να γίνει αποθήκευση της αλλαγής στο αρχείο.  
+                        sed -i "s/.*$2.*//" catalog
+                        echo " "
+                        echo "The line was replaced with a blank line successfully!"
+                        ;;
+                #-------[-r]---------
+                -r)
+                        #Θα γίνει χρήστη της εντολης sed όπου θα σβήνει την γράμμη που πέριεχει το keyword.
+                        sed -i "/$2/d" catalog
+                        echo " The line was deleted successfully!"
+                        ;;
+                  *)
+                        echo "Sorry wrong argument."
+
+                        ;;
+                esac
+        fi
+  
+  ;;
+
+
+#-------[-n]---------
+  -n)
+        echo -n " The number of blank lines in this catalog is: "
+        # Χρησιμοποιούμε την εντολή egrep για να βρεί πόσες είναι οι κε΄νες γραμμές. Με παράμετρους το -c για να μετραεί τις κένες γραμμές, -v για να κάνει match, με τις non matching γραμμες. 
+        grep -cv '\S' catalog
+
+        echo "Do you want to delete the blank lines? (Type Yes or No): "
+        read u
+                case $u in
+                Yes)
+                        #Χρησιμοποιούμε την εντολή sed για να διαγράψουμε τις κενές γραμμές. Το ^$ υποδηλώνει να διαγράψει τις κενές γραμμές.
+                        sed -i '/^$/d' catalog
+                        echo " "
+                        echo " The lines were successfully deleted."  
+                        ;;
+                yes)
+                        sed -i '/^$/d' catalog
+                        echo " "
+                        echo " The lines were successfully deleted."  
+                        ;;
+                No)
+                        echo " The lines were not deleted."
+                        ;;
+                no) 
+                        echo " The lines were not deleted."
+                        ;;
+                esac
+  ;;
+   *)
+        echo "Oops argument - Please try one of the options below:
+               1) $0  -a
+               2) $0  -l
+               3) $0  -s [number]
+               4) $0  -c [keyword]
+               5) $0  -d [keyword] -b/-r
+               6) $0  -n
+              "
+  ;;
+esac

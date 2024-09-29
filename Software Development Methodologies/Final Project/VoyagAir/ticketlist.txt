@@ -1,0 +1,10 @@
+0PGEAY	13/06/2021	Chris jack	Athens-Rome	 335.14	19/09/2021	1	1	Business Class
+2EGOIB	08/06/2021	Chris jack	Athens-Berlin	 800.56	18/10/2021	2	2	First Class
+7ICKPG	03/06/2021	Jake Brown	Athens-Dubai	 130.42	28/07/2021	1	2	Economy Class
+2RSDDB	05/06/2021	Chris jack	Athens-London	 145.57	18/09/2021	1	1	Economy Class
+2FNISB	02/06/2021	Chris jack	London-Athens	 300.03	25/09/2021	2	2	Economy Class
+6LFDXG	04/06/2021	Jake Brown	Dubai-Athens	 701.06	06/08/2021	1	2	Business Class
+3PLNQT	09/06/2021	Panos White	Athens-Bali	 944.24	19/08/2021	1	1	First Class
+0VFFDV	04/05/2021	Panos White	Bali-Athens	 941.89	06/09/2021	1	1	First Class
+4STKYK	10/06/2021	Panos White	Bali-Athens	 966.49	06/09/2021	1	1	First Class
+0OUSMF	12/06/2021	Chris jack	Rome-Athens	 305.62	20/08/2021	1	1	Business Class1CYINQ	13/06/2021	Chris jack	Athens-Rome	 615.01	19/9/2021	1	1	First Class

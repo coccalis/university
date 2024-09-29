@@ -1,0 +1,92 @@
+
+USE	new_personnel;
+
+/*Ερώτηση 1*/
+select ENAME, concat(format(SAL,0), '€') AS "ΜΙΣΘΟΣ", COMM "ΠΡΟΜΗΘΕΙΑ", concat(format((COMM/SAL)*100,2), '%') AS "ΠΟΣΟΣΤΟ"
+from EMP; 
+
+/*
+ΕΝΑΜΕ       ΜΙΣΘΟΣ      ΠΡΟΜΗΘΕΙΑ   ΠΟΣΟΣΤΟ
+-------------------------------------------
+CODD	    3,000€		
+ELMASRI	    1,200€	    150.00  	12.50%
+NAVATHE	    2,000€		
+DATE	    1,800€	    200.00  	11.11%
+
+*/
+
+
+
+/*Ερώτηση 2*/
+
+select ENAME "ΕΠΩΝΥΜΟ", concat(format(ifnull(SAL+COMM, SAL), 0), '€') as "ΜΗΝΑΙΕΣ ΑΠΟΔΟΧΕΣ", concat(TIMESTAMPDIFF(YEAR,hiredate,CURDATE()),' έτη') as "ΠΡΟΥΠΗΡΕΣΙΑ" 
+from EMP 
+where TIMESTAMPDIFF(YEAR,hiredate,CURDATE()) > 20;
+
+/*
+ENAME       ΜΙΣΘΟΣ      ΠΡΟΥΠΗΡΕΣΙΑ 
+--------------------------------------
+CODD	    3,000€	32 έτη
+ELMASRI	    1,350€  	26 έτη
+NAVATHE	    2,000€  	43 έτη
+*/
+
+
+
+/*Ερώτηση 3*/
+
+select ENAME "ΕΠΩΝΥΜΟ", JOB "ΘΕΣΗ", convert(HIREDATE, char) as "ΠΡΟΣΛΗΨΗ¨" 
+from EMP 
+where day(hiredate) < 4 AND (JOB = 'ANALYST' || JOB = 'SALESMAN'); 
+
+/*
+ΕΠΩΝΥΜΟ      ΘΕΣΗ           ΠΡΟΣΛΗΨΗ
+----------------------------------------
+CODD	     ANALYST	    1989-01-01
+ELMASRI	     ANALYST	    1995-05-02
+*/
+
+/*Ερώτηση 4*/
+
+select ENAME "ΕΠΩΝΥΜΟ", JOB "ΘΕΣΗ", concat(format(SAL,0),'€') as "ΜΙΣΘΟΣ", DEPTNO 
+from EMP
+where DEPTNO=10;
+
+/*
+ΕΠΩΝΥΜΟ     ΘΕΣΗ        ΜΙΣΘΟΣ      DEPTNO
+--------------------------------------------
+CODD	    ANALYST	3,000€  	10
+ELMASRI	    ANALYST	1,200€		10
+DATE	    PROGRAMMER	1,800€  	10
+
+*/
+
+
+
+/*Ερώτηση 5*/
+
+select ENAME "ΕΠΩΝΥΜΟ", JOB "ΘΕΣΗ", concat(format(SAL,0), '€') "ΜΙΣΘΟΣ", DEPTNO
+from EMP
+where SAL=(select MAX(SAL) from EMP where DEPTNO=10) or SAL=(select MAX(SAL) from EMP where DEPTNO=20);
+
+/*
+ΕΠΩΝΥΜΟ     ΘΕΣΗ        ΜΙΣΘΟΣ      DEPTNO
+--------------------------------------------
+CODD	    ANALYST	3,000€	    10
+
+*/
+
+
+/*Ερώτηση 6*/
+
+select ENAME "ΕΠΩΝΥΜΟ", JOB "ΘΕΣΗ", concat(format(SAL,0), '€') "ΜΙΣΘΟΣ", DEPTNO
+from EMP
+where (DEPTNO = '10' and SAL < (select MAX(SAL) from EMP where DEPTNO='30'));
+
+/*
+Δεν θα εμφανιστεί κάποιο αποτέλεσμα αυτή την στιγμή γιατί δεν υπάρχει κάποιος εργαζόμενος στο τμήμα RESEARCH.
+
+ΕΠΩΝΥΜΟ  ΘΕΣΗ ΜΙΣΘΟΣ  DEPTNO
+
+
+*/

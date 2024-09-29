@@ -1,0 +1,29 @@
+.data
+
+msg1: .asciiz "Zero\n"
+msg2: .asciiz "Non Zero\n"
+number: .word 0
+.text
+.globl main
+main:
+
+la $t0, number
+li $v0, 5	# Δώστε τον πρώτο αριθμό
+syscall
+move $t0, $v0
+beq $t0, $zero, goto  
+
+  li $v0, 4
+  la $a0, msg2
+  syscall
+j else 
+
+
+goto:
+  li $v0, 4
+  la $a0,msg1
+  syscall
+
+else:
+li $v0, 10
+syscall

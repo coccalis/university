@@ -1,0 +1,126 @@
+
+USE	new_personnel;
+
+/*Ερώτηση 1*/
+
+select ENAME, DEPTNO, COMM
+from EMP
+where DEPTNO=10 
+order by ifnull(COMM,0);
+
+/*
+ENAME	    DEPTNO  COMM
+CODD	    10	
+ELMASRI	    10	    150.00
+DATE	    10	    200.00
+
+*/
+
+
+/*Ερώτηση 2*/
+
+select ENAME, JOB, SAL
+from EMP
+order by JOB ASC, SAL DESC;
+
+/*
+ENAME	    JOB	        SAL
+CODD	    ANALYST	3000.00
+ELMASRI	    ANALYST	1200.00
+DATE	    PROGRAMMER	1800.00
+NAVATHE	    SALESMAN	2000.00
+
+*/
+
+/*Ερώτηση 3*/
+
+select DEPTNO,concat(format(AVG(SAL),0),'€') as SAL,COUNT(*)
+from EMP
+group by DEPTNO
+having COUNT(*)>=1;
+
+/*
+
+DEPTNO	   SAL	       COUNT(*)
+10	   2,000€	3
+20	   2,000€	1
+
+*/
+
+
+/*Ερώτηση 4*/
+
+select DEPTNO "ΤΜΗΜΑ", concat(format(avg(DATEDIFF(current_date(), HIREDATE)/365),1), ' έτη') as "ΠΡΟΥΠΗΡΕΣΙΑ (έτη)" 
+from EMP 
+group by DEPTNO;
+
+/*
+ΤΜΗΜΑ	ΠΡΟΥΠΗΡΕΣΙΑ (έτη)
+10	    25.2 έτη
+20	    43.9 έτη
+
+*/
+
+/*Ερώτηση 5*/
+
+select PROJ.DESCRIPTION, EMP.ENAME, EMP.JOB
+from EMP, PROJ, ASSIGN
+where PROJ.PROJ_CODE=ASSIGN.PROJ_CODE and ASSIGN.EMPNO=EMP.EMPNO
+order by DESCRIPTION, JOB;
+
+/*
+DESCRIPTION	ENAME	    JOB
+PAYROLL	        ELMASRI	    ANALYST
+PAYROLL	        CODD	    ANALYST
+PAYROLL	        DATE	    PROGRAMMER
+PERSONNEL	CODD	    ANALYST
+PERSONNEL	NAVATHE	    SALESMAN
+
+
+*/
+
+
+/*Ερώτηση 6*/
+
+select  DEPT.DNAME , A.ENAME as Manager, B.ENAME as Employee
+from EMP A, EMP B,DEPT
+where (A.EMPNO = B.MGR AND DEPT.DEPTNO = A.DEPTNO)
+order by DEPT.DNAME,A.ENAME;
+
+/*
+DNAME	     Manager	    Employee
+ACCOUNTING   ELMASRI	    CODD
+ACCOUNTING   ELMASRI	    DATE
+ACCOUNTING   ELMASRI	    ELMASRI
+SALES	     NAVATHE	    NAVATHE
+
+*/
+
+/*Ερώτηση 7*/
+
+select EMP.ENAME, EMP.JOB, DEPT.LOC
+from EMP, DEPT
+where DEPT.DEPTNO= EMP.DEPTNO and DEPT.DEPTNO=20;
+
+/*
+Η εκφώνηση της άσκησης ζητάει τα όνοματα, την θέση τους και την τοποθεσία  των υπαλλη΄λών που ανήκουν στο τμήμα "Research". Όμως με τα στοιχεία που έχουν οι βάσεις κανένας υπάλληλος
+ανήκει στο τμήμα Research γιαυτό έβαλα ένα αλλό τμ΄ημα για να δείξω ότι δουλεύει η εντολή
+
+ENAME	    JOB	        LOC
+NAVATHE	    SALESMAN	LONDON
+
+*/
+
+
+/*Ερώτηση 8*/
+
+select EMP.ENAME, ASSIGN.A_TIME
+from EMP, PROJ, ASSIGN
+where PROJ.DESCRIPTION = 'PAYROLL' and EMP.EMPNO = ASSIGN.EMPNO and PROJ.PROJ_CODE = ASSIGN.PROJ_CODE and ASSIGN.A_TIME >= 50;
+
+/*
+ENAME	    A_TIME
+ELMASRI	    100
+DATE	    100
+
+*/

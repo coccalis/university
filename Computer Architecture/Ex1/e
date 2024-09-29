@@ -1,0 +1,35 @@
+.data
+msg: .asciiz "*\n"
+i: .word 0
+.text
+.globl main
+main:
+
+li $t5, 5
+li $t0, 0
+addi $t2, $zero, 5
+again:
+
+  li $v0, 11
+  la $a0, '*'
+  syscall
+
+  li $v0, 11
+  la $a0, '*'
+  syscall
+
+  li $v0, 11
+  la $a0, '*'
+  syscall
+  
+  
+  li $v0, 4
+  la $a0, msg
+  syscall
+
+addi $t0, $t0, 1 
+bne $t5, $t0, again 
+
+li $v0, 10
+syscall
+ 

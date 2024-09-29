@@ -1,0 +1,28 @@
+.data
+msg1: .asciiz "Positive\n"
+msg2: .asciiz "Non Positive\n"
+number: .word 0
+.text
+.globl main
+main:
+
+la $t0, number
+li $v0, 5
+syscall
+move $t0,$v0
+bgez $t0, goto
+
+  li $v0, 4
+  la $a0, msg2
+  syscall
+j else
+
+goto:
+
+  li $v0, 4
+  la $a0, msg1
+  syscall
+
+else:
+li $v0, 10
+syscall 

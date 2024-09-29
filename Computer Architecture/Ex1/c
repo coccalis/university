@@ -1,0 +1,21 @@
+.data
+#i: .word 0
+.text
+.globl main
+main:
+
+li $t5 , 5 # loops
+li $t0, 0
+addi $t2, $zero, 5
+again:
+
+  li $v0, 11
+  la $a0, '*' 
+  syscall
+  
+addi $t0, $t0, 1    #i++
+bne $t5, $t0, again
+
+
+li $v0, 10
+syscall 
